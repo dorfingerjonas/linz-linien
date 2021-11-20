@@ -1,17 +1,22 @@
 package at.htl.linzlinien.entity;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
-
+@Entity(name = "LL_STATION")
 public class Station {
 
+    @Id
+    @Column(name = "ST_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
     private Line line;
 
+    @ManyToOne
     private Location location;
 
+    @ManyToOne
     private Station prevStation;
 
     //region constructors
@@ -68,7 +73,7 @@ public class Station {
                 "Linie %s - Station %s (vorherige Station: %s)",
                 line.getName(),
                 location.getName(),
-                (prevStation==null)?"n/a":prevStation.getLocation().getName()
+                (prevStation == null) ? "n/a" : prevStation.getLocation().getName()
         );
     }
 }
