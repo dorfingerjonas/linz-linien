@@ -6,6 +6,8 @@ import org.jboss.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -40,7 +42,14 @@ public class LocationRepository {
      * @return the location (with the given name) or null, when the name is not in the db
      */
     public Location findByName(String name) {
-        return null;
+        try {
+            TypedQuery<Location> query = em.createNamedQuery("Location.findByName", Location.class)
+                    .setParameter("NAME", name);
+
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     /**
