@@ -3,6 +3,12 @@ package at.htl.linzlinien.entity;
 import javax.persistence.*;
 
 @Entity(name = "LL_STATION")
+@NamedQueries({
+        @NamedQuery(
+                name = "Station.stationsPerLine",
+                query = "select s from LL_STATION s where s.line.name like :LINENAME"
+        )
+})
 public class Station {
 
     @Id
