@@ -5,6 +5,8 @@ import at.htl.linzlinien.entity.Station;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -53,7 +55,13 @@ public class StationRepository {
      * @return
      */
     public List<Station> stationsPerLine(String lineName) {
-        return null;
-    }
+        try {
+            TypedQuery<Station> query = em.createNamedQuery("Station.stationsPerLine", Station.class)
+                    .setParameter("LINENAME", lineName);
 
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
