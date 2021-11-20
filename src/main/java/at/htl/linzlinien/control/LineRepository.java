@@ -5,6 +5,8 @@ import at.htl.linzlinien.entity.Line;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 @ApplicationScoped
@@ -35,7 +37,14 @@ public class LineRepository {
      * @return the line (with the given name) or null, when the name is not in the db
      */
     public Line findByName(String name) {
-        return null;
+        try {
+            TypedQuery<Line> query = em.createNamedQuery("Line.findByName", Line.class)
+                    .setParameter("NAME", name);
+
+            return query.getSingleResult();
+        }  catch (NoResultException e) {
+            return null;
+        }
     }
 
 }
