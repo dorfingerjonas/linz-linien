@@ -31,7 +31,9 @@ public class LocationRepository {
      */
     @Transactional
     public Location save(Location location) {
-        return null;
+        Location existingLocation = findByName(location.getName());
+
+        return existingLocation != null ? existingLocation : em.merge(location);
     }
 
     /**
