@@ -1,8 +1,15 @@
 package at.htl.linzlinien.entity;
 
+import javax.inject.Named;
 import javax.persistence.*;
 
 @Entity(name = "LL_LOCATION")
+@NamedQueries({
+        @NamedQuery(
+                name = "Location.findByName",
+                query = "SELECT l from LL_LOCATION l where l.name like :NAME"
+        )
+})
 public class Location {
 
     @Id
