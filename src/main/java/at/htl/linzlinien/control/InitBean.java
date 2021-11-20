@@ -13,7 +13,6 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -49,11 +48,9 @@ public class InitBean {
     }
 
     /**
-     *
-     *
      * Runs when starting the app
      * In TEST-Profile, the locations, lines and stations are not imported
-     *
+     * <p>
      * https://stackoverflow.com/a/69870750
      *
      * @param event
@@ -63,7 +60,7 @@ public class InitBean {
         parseRouteOne();
         parseRouteTwo();
 
-        if(!"test".equals(io.quarkus.runtime.configuration.ProfileManager.getActiveProfile())) {
+        if (!"test".equals(io.quarkus.runtime.configuration.ProfileManager.getActiveProfile())) {
             getAllLines();
         }
     }
@@ -102,10 +99,10 @@ public class InitBean {
 
     /**
      * iterates the lines-map
-     *    persists the line-name in the database
-     *    gets all stations from HTML-page
-     *    persists all locations in the database
-     *    persists all stations in the database
+     * persists the line-name in the database
+     * gets all stations from HTML-page
+     * persists all locations in the database
+     * persists all stations in the database
      */
     void getAllLines() {
         for (String lineKey : lines.keySet()) {
