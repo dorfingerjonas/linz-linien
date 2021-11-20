@@ -63,10 +63,9 @@ public class InitBean {
         parseRouteOne();
         parseRouteTwo();
 
-        // Kommentieren Sie dies wieder ein
-//        if(!"test".equals(io.quarkus.runtime.configuration.ProfileManager.getActiveProfile())) {
-//            getAllLines();
-//        }
+        if(!"test".equals(io.quarkus.runtime.configuration.ProfileManager.getActiveProfile())) {
+            getAllLines();
+        }
     }
 
     private void parseRouteOne() {
