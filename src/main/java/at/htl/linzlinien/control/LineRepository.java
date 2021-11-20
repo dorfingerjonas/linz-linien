@@ -26,7 +26,9 @@ public class LineRepository {
      */
     @Transactional
     public Line save(Line line) {
-        return null;
+        Line existingLine = findByName(line.getName());
+
+        return existingLine != null ? existingLine : em.merge(line);
     }
 
     /**
