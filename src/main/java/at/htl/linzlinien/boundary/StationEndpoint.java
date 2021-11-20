@@ -14,9 +14,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-import static java.lang.System.out;
-
+@Path("/station")
 public class StationEndpoint {
+
+    @Inject
+    StationRepository repository;
 
     /**
      * localhost:8080/api/station?line=1
@@ -24,9 +26,19 @@ public class StationEndpoint {
      * @param lineName
      * @return all Stations of the given line
      */
-    public JsonArray printAllStationsPerLine(String lineName) {
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonArray printAllStationsPerLine(@QueryParam("line") String lineName) {
+        List<Station> stations = repository.stationsPerLine(lineName);
+        JsonArrayBuilder builder = Json.createArrayBuilder();
 
+        stations.stream()
+                .map(station -> Json.createObjectBuilder()
+                        .add("line", station.getLine().getName())
+                        .add("station", station.getLocation().getName())
+                        .build())
+                .forEach(builder::add);
 
-        return null;
+        return builder.build();
     }
 }
