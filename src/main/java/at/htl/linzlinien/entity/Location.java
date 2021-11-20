@@ -1,6 +1,5 @@
 package at.htl.linzlinien.entity;
 
-import javax.inject.Named;
 import javax.persistence.*;
 
 @Entity(name = "LL_LOCATION")
