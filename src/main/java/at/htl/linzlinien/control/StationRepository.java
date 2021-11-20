@@ -33,7 +33,17 @@ public class StationRepository {
      * @param stations
      */
     public void saveStationsFromLine(String lineName, List<String> stations) {
+        Station prevStation = null;
 
+        for (String stationName : stations) {
+            Station station = new Station(
+                    lineRepository.findByName(lineName),
+                    locationRepository.findByName(stationName),
+                    prevStation
+            );
+
+            prevStation = save(station);
+        }
     }
 
     /**
