@@ -11,12 +11,15 @@ public class Station {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "ST_LI_ID")
     private Line line;
 
     @ManyToOne
+    @JoinColumn(name = "ST_LO_ID")
     private Location location;
 
     @ManyToOne
+    @JoinColumn(name = "ST_PREVIOUS_ID")
     private Station prevStation;
 
     //region constructors
