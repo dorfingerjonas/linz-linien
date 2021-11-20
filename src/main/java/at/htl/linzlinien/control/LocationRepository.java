@@ -1,18 +1,15 @@
 package at.htl.linzlinien.control;
 
 import at.htl.linzlinien.entity.Location;
-import at.htl.linzlinien.entity.Station;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
-
+@ApplicationScoped
 public class LocationRepository {
 
     @Inject
@@ -23,12 +20,12 @@ public class LocationRepository {
 
     /**
      * search the location in the database.
-     *  - when it is already persisted, return the existing location
-     *  - when the location.name is not found, persist the location object
+     * - when it is already persisted, return the existing location
+     * - when the location.name is not found, persist the location object
      *
      * @param location
      * @return the existing location, when location.name already exists in db
-     *         or return the persisted location, when not found in database
+     * or return the persisted location, when not found in database
      */
     @Transactional
     public Location save(Location location) {
@@ -48,7 +45,8 @@ public class LocationRepository {
 
     /**
      * iterate the stations-list
-     *   save the stations as locations (Haltestellen)
+     * save the stations as locations (Haltestellen)
+     *
      * @param stations
      */
     public void saveLocationBulk(List<String> stations) {

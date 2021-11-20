@@ -1,17 +1,14 @@
 package at.htl.linzlinien.control;
 
-import at.htl.linzlinien.entity.Line;
-import at.htl.linzlinien.entity.Location;
 import at.htl.linzlinien.entity.Station;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
-
+@ApplicationScoped
 public class StationRepository {
 
     @Inject

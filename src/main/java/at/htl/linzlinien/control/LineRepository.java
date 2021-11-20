@@ -1,16 +1,13 @@
 package at.htl.linzlinien.control;
 
 import at.htl.linzlinien.entity.Line;
-import at.htl.linzlinien.entity.Location;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-
+@ApplicationScoped
 public class LineRepository {
 
     @Inject
