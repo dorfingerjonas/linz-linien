@@ -61,6 +61,6 @@ public class LocationRepository {
      * @param stations
      */
     public void saveLocationBulk(List<String> stations) {
-
+        stations.forEach(station -> save(new Location(station)));
     }
 }
