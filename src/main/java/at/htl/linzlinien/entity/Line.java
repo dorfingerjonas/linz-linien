@@ -2,11 +2,15 @@ package at.htl.linzlinien.entity;
 
 import javax.persistence.*;
 
-
+@Entity(name = "LL_LINE")
 public class Line {
 
+    @Id
+    @Column(name = "LI_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "LI_NAME", unique = true)
     private String name;
 
     //region constructors
