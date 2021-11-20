@@ -13,6 +13,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,8 +58,8 @@ public class InitBean {
      */
     void onStart(@Observes StartupEvent event) {
         // Kommentieren Sie diese beiden Methodenaufrufe aus, wenn sie mit der Abarbeitung der Map beginnen
-        parseRouteOne();
-        parseRouteTwo();
+//        parseRouteOne();
+//        parseRouteTwo();
 
         if (!"test".equals(io.quarkus.runtime.configuration.ProfileManager.getActiveProfile())) {
             getAllLines();
@@ -126,13 +127,28 @@ public class InitBean {
      * All titles which begin with "Haltestelle"
      * Remove the substring "Haltestelle" from title
      *
-     * @param line
+     * @param lineKey
      * @return
      */
-    private List<String> parseRoute(String line) {
+    private List<String> parseRoute(String lineKey) {
+        List<String> linesList = new LinkedList<>();
 
-        return null;
+        try {
+            Document doc = Jsoup.connect(lines.get(lineKey)).get();
+            Elements stations = doc.select("li > a");
+
+            LOG.info("---------------------> Linie " + lineKey);
+
+            for (Element station : stations) {
+                if (station.attr("title").startsWith("Haltestelle")) {
+                    LOG.infof("%s", station.attr("title"));
+                    linesList.add(station.attr("title").substring(12));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return linesList;
     }
-
-
 }
